@@ -31,7 +31,7 @@ app.post('/', (req, res) => {
       transactionID = JSON.stringify(payload.id, null, 2);
       transactionDate = JSON.stringify(payload.paid_at, null, 2);
 
-      transactionSummary = transactionID + " " + amountPaid + " " + transactionDate;
+      transactionSummary = amountPaid + " " + transactionID + " " + transactionDate;
 
       console.log('\nId:', transactionID);
       console.log('Amount Paid:', amountPaid);
