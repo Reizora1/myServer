@@ -1,0 +1,88 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+let payload;
+let data;
+let eventType;
+let amountPaid;
+let referenceCode;
+let transactionSummary = "No Data received.";
+
+// Middleware to parse JSON data
+app.use(bodyParser.json());
+
+// Middleware to ignore requests for favicon.ico
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end(); // Send a 204 No Content response
+});
+
+// Webhook endpoint to handle POST requests
+app.post('/', (req, res) => {
+
+  // If it's a paypal verification request, respond with the same transmission ID and a 200 OK status
+  /*if (isVerificationRequest) {
+    const transmissionId = req.get('PayPal-Transmission-Id');
+    res.set('PayPal-Transmission-Id', transmissionId);
+    res.status(200).send('Verification successful');
+    return;
+  }*/
+
+  // Handle the webhook payload containing json data of events triggered from PayMongo.
+  payload = req.body;
+  // Convert payload json data into a string and assign to global variable named data.
+  data = JSON.stringify(payload, null, 2);
+
+  try {
+    // Check if the payload and its properties exist before accessing them
+    if(payload && payload.data && payload.data.attributes) {
+      eventType = JSON.stringify(payload.data.attributes.type, null, 2);
+
+      // Check if 'data' property exists before accessing 'attributes' and 'amount'
+      if(payload.data.attributes.data && payload.data.attributes.data.attributes) {
+        amountPaid = JSON.stringify(payload.data.attributes.data.attributes.amount, null, 2);
+        referenceCode = JSON.stringify(payload.data.attributes.data.attributes.external_reference_number, null, 2);
+
+        transactionSummary = eventType + " " + amountPaid + " " + referenceCode;
+      }
+      else {
+        transactionSummary = `Invalid payload structure: Missing 'data.attributes.data.attributes'.`;
+      }
+      console.log('\nEvent Type:', eventType);
+      console.log('Amount Paid:', amountPaid);
+      console.log('Reference Code:', referenceCode);
+    }
+    else {
+      transactionSummary = `Invalid payload structure: Missing 'data.attributes'.`;
+    }
+    // Display the entire payload to the console.
+    console.log('\nReceived data:', payload);
+    console.log('Received data object:\n', data);
+    
+    // 2xx response from our server to paymongo indicating successful data acquisition.
+    res.status(200).send('Data received.');
+  }
+  catch(error) {
+    console.error('Error processing payload:', error);
+    res.status(500).send('Internal Server Error');
+    return;
+  }
+});
+
+// Route to handle GET requests at the root URL
+app.get('/', (req, res) => {
+  /*// Store the extracted data in eventData
+  eventData = {
+    eventType,
+    amountPaid,
+  };*/
+
+  // Display json data to the web UI.
+  res.send(transactionSummary);
+  console.log("localhost:3000 has been opened")
+});
+
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
