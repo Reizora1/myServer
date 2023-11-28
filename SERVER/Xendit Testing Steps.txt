@@ -1,0 +1,30 @@
+Backend server hosted through Render: https://apsc-ewallet-backend.onrender.com
+
+Requirements:
+-Xendit testing account
+-Render account
+-Github repository
+
+Xendit:
+Setup Xendit payment links to unlimited transaction and variable amount, copy link or generate a qr code.
+Setup Xendit "invoice" event webhook url endpoint towards our server hosted by Render. https://dashboard.xendit.co/settings/developers#api-keys.
+
+Render:
+Create Render account.
+Goto dashboard.
+Deploy backend server by selecting "Web Services".
+Select "Build and deploy from a Git repository".
+Connect to GitHub, set repository access to Reizora1/myServer.
+Connect to the repository.
+Enter required fields.
+In Root Directory field, enter the root folder "SERVER"
+In Build Command field, enter "npm install"
+In Start Command field, enter "node server.js"
+Select Free plan as Instance Type
+Click "Create Web Service" button.
+Reference: https://www.youtube.com/watch?v=yln_CffenYw&list=WL&index=110&t=204s
+Render Events: https://dashboard.render.com/web/srv-climsjhll56s73f9u6l0
+Render Logs: https://dashboard.render.com/web/srv-climsjhll56s73f9u6l0/logs
+Render Billing: https://dashboard.render.com/billing#free-usage
+
+DO TRANSACTION SIMULATIONS IN XENDIT DASHBOARD FROM THE GENERATED LINK OR QR CODE.
