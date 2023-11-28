@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 let payload;
 let data;
+let serverID;
 let amountPaid;
 let transactionID;
 let transactionDate;
@@ -30,8 +31,9 @@ app.post('/', (req, res) => {
       amountPaid = JSON.stringify(payload.paid_amount, null, 2);
       transactionID = JSON.stringify(payload.id, null, 2);
       transactionDate = JSON.stringify(payload.paid_at, null, 2);
+      serverID = JSON.stringify(payload.external_id, null, 2);
 
-      transactionSummary = amountPaid + " " + transactionID + " " + transactionDate;
+      transactionSummary = amountPaid + " " + transactionID + " " + transactionDate + " " + serverID;
 
       console.log('\nId:', transactionID);
       console.log('Amount Paid:', amountPaid);
