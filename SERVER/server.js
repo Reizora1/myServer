@@ -39,10 +39,10 @@ app.post('/', (req, res) => {
 
       transactionSummary = amountPaid + " " + transactionID + " " + transactionDate + " " + serverID;
 
-      console.log('\nId:', transactionID);
+      console.log('\nTransaction Id:', transactionID);
       console.log('Amount Paid:', amountPaid);
       console.log('Date:', transactionDate);
-      console.log('Date:', serverID);
+      console.log('Machine ID:', serverID);
     }
     else {
       transactionSummary = `Invalid payload structure`;
