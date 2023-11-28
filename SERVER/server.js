@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 let payload;
-let data;
+//let data;
 let serverID;
 let amountPaid;
 let transactionID;
@@ -23,11 +23,15 @@ app.post('/', (req, res) => {
   // Handle the webhook payload containing json data of events triggered from PayMongo.
   payload = req.body;
   // Convert payload json data into a string and assign to global variable named data.
-  data = JSON.stringify(payload, null, 2);
+  // data = JSON.stringify(payload, null, 2);
 
   try {
     // Check if the payload and its properties exist before accessing them
     if(payload) {
+      // Display the entire payload to the console.
+      console.log('\nReceived data:', payload);
+      // console.log('Received data object:\n', data);
+      
       amountPaid = JSON.stringify(payload.paid_amount, null, 2);
       transactionID = JSON.stringify(payload.id, null, 2);
       transactionDate = JSON.stringify(payload.paid_at, null, 2);
@@ -38,14 +42,11 @@ app.post('/', (req, res) => {
       console.log('\nId:', transactionID);
       console.log('Amount Paid:', amountPaid);
       console.log('Date:', transactionDate);
+      console.log('Date:', serverID);
     }
     else {
       transactionSummary = `Invalid payload structure`;
     }
-    // Display the entire payload to the console.
-    console.log('\nReceived data:', payload);
-    console.log('Received data object:\n', data);
-    
     // 2xx response from our server to paymongo indicating successful data acquisition.
     res.status(200).send('Data received.');
   }
