@@ -27,9 +27,9 @@ app.post('/', (req, res) => {
   try {
     // Check if the payload and its properties exist before accessing them
     if(payload) {
-      transactionID = JSON.stringify(payload.id, null, 2);
       amountPaid = JSON.stringify(payload.paid_amount, null, 2);
-      transactionDate = JSON.stringify(payload.id, null, 2);
+      transactionID = JSON.stringify(payload.id, null, 2);
+      transactionDate = JSON.stringify(payload.paid_at, null, 2);
 
       transactionSummary = transactionID + " " + amountPaid + " " + transactionDate;
 
