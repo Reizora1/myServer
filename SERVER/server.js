@@ -4,8 +4,9 @@ const bodyParser = require('body-parser');
 const app = express();
 let payload;
 //let data;
-let serverID;
+let machineID;
 let amountPaid;
+let paymentStatus;
 let transactionID;
 let transactionDate;
 let transactionSummary = "No Data received.";
@@ -35,14 +36,16 @@ app.post('/', (req, res) => {
       amountPaid = JSON.stringify(payload.paid_amount, null, 2);
       transactionID = JSON.stringify(payload.id, null, 2);
       transactionDate = JSON.stringify(payload.paid_at, null, 2);
-      serverID = JSON.stringify(payload.external_id, null, 2);
+      machineID = JSON.stringify(payload.external_id, null, 2);
+      paymentStatus = JSON.stringify(payload.status, null, 2);
 
-      transactionSummary = amountPaid + " " + transactionID + " " + transactionDate + " " + serverID;
+      transactionSummary = amountPaid + " " + paymentStatus + " " + transactionID + " " + transactionDate + " " + machineID;
 
-      console.log('\nTransaction Id:', transactionID);
       console.log('Amount Paid:', amountPaid);
+      console.log('Status:', paymentStatus);
+      console.log('\nTransaction Id:', transactionID);
       console.log('Date:', transactionDate);
-      console.log('Machine ID:', serverID);
+      console.log('Machine ID:', machineID);
     }
     else {
       transactionSummary = `Invalid payload structure`;
