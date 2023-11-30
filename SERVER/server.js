@@ -43,7 +43,7 @@ app.post('/', (req, res) => {
 
       console.log('Amount Paid:', amountPaid);
       console.log('Status:', paymentStatus);
-      console.log('\nTransaction Id:', transactionID);
+      console.log('Transaction Id:', transactionID);
       console.log('Date:', transactionDate);
       console.log('Machine ID:', machineID);
     }
