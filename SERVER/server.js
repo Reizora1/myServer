@@ -41,7 +41,7 @@ app.post('/', (req, res) => {
       paymentStatus = JSON.stringify(payload.status, null, 2);
       ewalletType = JSON.stringify(payload.ewallet_type, null, 2);
       
-      transactionSummary = amountPaid + " " + paymentStatus + " " + ewalletType + " " + transactionID + " " + transactionDate + " " + machineID;
+      transactionSummary = "Amount Paid: " + amountPaid + " " + "\nPayment Status: " + paymentStatus + " " + "\nEwallet: " + ewalletType + " " + "\nTransaction ID: " + transactionID + " " + "\nDate: " + transactionDate + " " + "\nMachine ID: " + machineID;
 
       console.log('Amount Paid:', amountPaid);
       console.log('Status:', paymentStatus);
