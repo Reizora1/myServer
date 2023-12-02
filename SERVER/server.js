@@ -7,6 +7,7 @@ let payload;
 let machineID;
 let amountPaid;
 let paymentStatus;
+let ewalletType;
 let transactionID;
 let transactionDate;
 let transactionSummary = "No Data received.";
@@ -38,11 +39,13 @@ app.post('/', (req, res) => {
       transactionDate = JSON.stringify(payload.paid_at, null, 2);
       machineID = JSON.stringify(payload.external_id, null, 2);
       paymentStatus = JSON.stringify(payload.status, null, 2);
-
-      transactionSummary = amountPaid + " " + paymentStatus + " " + transactionID + " " + transactionDate + " " + machineID;
+      ewalletType = JSON.stringify(payload.ewallet_type, null, 2);
+      
+      transactionSummary = amountPaid + " " + paymentStatus + " " + ewalletType + " " + transactionID + " " + transactionDate + " " + machineID;
 
       console.log('Amount Paid:', amountPaid);
       console.log('Status:', paymentStatus);
+      console.log('Ewallet:', ewalletType);
       console.log('Transaction Id:', transactionID);
       console.log('Date:', transactionDate);
       console.log('Machine ID:', machineID);
