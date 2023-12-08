@@ -1,7 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const firebase = require('firebase');
 const app = express();
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDxeU-bMAf-O0HYhz6X8yhsNPpqe19ld_8",
+  authDomain: "apsc-database.firebaseapp.com",
+  databaseURL: "https://apsc-database-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "apsc-database",
+  storageBucket: "apsc-database.appspot.com",
+  messagingSenderId: "848325536482",
+  appId: "1:848325536482:web:efe7c6b0cd442eff6c0cbb"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// Firebase reference
+var database = firebase.database();
+
 let payload;
 //let data;
 let machineID;
@@ -12,27 +27,23 @@ let transactionID;
 let transactionDate;
 let transactionSummary = "No Data received.";
 
-// Middleware to parse JSON data
+// JSON Data parser
 app.use(bodyParser.json());
 
-// Middleware to ignore requests for favicon.ico
+// ignore favicon.ico requests
 app.get('/favicon.ico', (req, res) => {
-  res.status(204).end(); // Send a 204 No Content response
+  res.status(204).end();
 });
 
 // Webhook endpoint to handle POST requests
 app.post('/', (req, res) => {
-  // Handle the webhook payload containing json data of events triggered from PayMongo.
+  // Request body data to payload variable
   payload = req.body;
-  // Convert payload json data into a string and assign to global variable named data.
-  // data = JSON.stringify(payload, null, 2);
 
   try {
-    // Check if the payload and its properties exist before accessing them
+    // Check if payload is present
     if(payload) {
-      // Display the entire payload to the console.
       console.log('\nReceived data:', payload);
-      // console.log('Received data object:\n', data);
       
       amountPaid = JSON.stringify(payload.paid_amount, null, 2);
       transactionID = JSON.stringify(payload.id, null, 2);
@@ -40,8 +51,10 @@ app.post('/', (req, res) => {
       machineID = JSON.stringify(payload.external_id, null, 2);
       paymentStatus = JSON.stringify(payload.status, null, 2);
       ewalletType = JSON.stringify(payload.ewallet_type, null, 2);
-      
+
       transactionSummary = amountPaid + " " + paymentStatus + " " + ewalletType + " " + transactionID + " " + transactionDate + " " + machineID;
+
+      writeData(amountPaid, transactionID, paymentStatus, ewalletType);
 
       console.log('Amount Paid:', amountPaid);
       console.log('Status:', paymentStatus);
@@ -63,12 +76,33 @@ app.post('/', (req, res) => {
   }
 });
 
-// Route to handle GET requests at the root URL
 app.get('/', (req, res) => {
-  // Display json data to the web UI.
+  // Display JSON data
   res.send(transactionSummary);
   console.log("localhost:3000 has been opened")
 });
+
+// writeData function
+function writeData(amountPaid, transactionID, paymentStatus, ewalletType) {
+  var dataRef = database.ref('TST001/transactionHistory/eWallet');
+
+  // Data to be written
+  var newData = {
+    amount: amountPaid,
+    status: paymentStatus,
+    eWallet: ewalletType,
+    transactionDate: new Date().toString()
+  };
+
+  // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
+  dataRef.child(transactionID).set(newData)
+    .then(function() {
+      console.log("Data written successfully!");
+    })
+    .catch(function(error) {
+      console.error("Error writing data: ", error);
+    });
+}
 
 const port = 3000;
 app.listen(port, () => {
