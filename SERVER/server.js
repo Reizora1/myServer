@@ -91,7 +91,7 @@ function writeData(amountPaid, transactionID, paymentStatus, ewalletType) {
     amount: amountPaid,
     status: paymentStatus,
     eWallet: ewalletType,
-    transactionDate: new Date().toString()
+    transactionDate: new Date().toLocaleString('en-US', { timeZone: 'Asia/Singapore' })
   };
 
   // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
