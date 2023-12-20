@@ -18,7 +18,6 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 let payload;
-let header;
 let machineID;
 let amountPaid;
 let paymentStatus;
@@ -39,8 +38,6 @@ app.get('/favicon.ico', (req, res) => {
 app.post('/', (req, res) => {
   // Request body data to payload variable
   payload = req.body;
-  header = JSON.stringify(req.header, null, 2);
-  console.log(header);
   
   try {
     // Check if payload is present
