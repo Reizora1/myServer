@@ -39,7 +39,7 @@ app.get('/favicon.ico', (req, res) => {
 app.post('/', (req, res) => {
   // Request body data to payload variable
   payload = req.body;
-  header = req.header;
+  header = JSON.stringify(req.header, null, 2);
   console.log(header);
   
   try {
