@@ -41,9 +41,6 @@ app.post('/', (req, res) => {
   payload = req.body;
   header = req.header;
   console.log(header);
-  Object.keys(headers).forEach(key => {
-    console.log(`${key}: ${header[key]}`);
-  });
   
   try {
     // Check if payload is present
