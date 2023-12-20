@@ -39,10 +39,10 @@ app.get('/favicon.ico', (req, res) => {
 app.post('/', (req, res) => {
   // Request body data to payload variable
   payload = req.body;
-  headers = req.header;
-  console.log(headers);
+  header = req.header;
+  console.log(header);
   Object.keys(headers).forEach(key => {
-    console.log(`${key}: ${headers[key]}`);
+    console.log(`${key}: ${header[key]}`);
   });
   
   try {
