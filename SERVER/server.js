@@ -12,10 +12,11 @@ const firebaseConfig = {
   messagingSenderId: "848325536482",
   appId: "1:848325536482:web:efe7c6b0cd442eff6c0cbb"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 // Firebase reference
-var database = firebase.database();
+let database = firebase.database();
 
 let payload;
 let machineID;
@@ -38,7 +39,7 @@ app.get('/favicon.ico', (req, res) => {
 app.post('/', (req, res) => {
   // Request body data to payload variable
   payload = req.body;
-  
+
   try {
     // Check if payload is present
     if(payload) {
@@ -53,7 +54,7 @@ app.post('/', (req, res) => {
 
       transactionSummary = amountPaid + " " + paymentStatus + " " + ewalletType + " " + transactionID + " " + transactionDate + " " + machineID;
 
-      writeData(amountPaid, transactionID, paymentStatus, ewalletType);
+      writeData();
 
       console.log('Amount Paid:', amountPaid);
       console.log('Status:', paymentStatus);
@@ -78,31 +79,71 @@ app.post('/', (req, res) => {
 app.get('/', (req, res) => {
   // Display JSON data
   res.send(transactionSummary);
-  console.log("localhost:3000 has been opened")
+  console.log(`localhost:${port} has been opened`)
 });
 
 // writeData function
-function writeData(amountPaid, transactionID, paymentStatus, ewalletType) {
-  var dataRef = database.ref('TST001/transactionHistory/eWallet');
+function writeData() {
+  let dataRef = null;
 
   // Data to be written
-  var newData = {
+  let newData = {
     amount: amountPaid,
     status: paymentStatus,
     eWallet: ewalletType,
     transactionDate: new Date().toLocaleString('en-US', { timeZone: 'Asia/Singapore' })
   };
 
-  // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
-  dataRef.child(transactionID).set(newData)
-    .then(function() {
-      console.log("Data written successfully!");
-    })
-    .catch(function(error) {
-      console.error("Error writing data: ", error);
-    });
-}
-
+  switch(machineID) {
+    //cases machineTest1 & machineTest2 is for owner1.
+    //cases machineTest3 & machineTest4 is for owner2.
+    case `"machineTest1"`:
+      dataRef = database.ref(`users/uid/CpSFEjW3QGckOPjuQSEbORx7Wdq1/TST001/transactionHistory/eWallet`);
+      // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
+      dataRef.child(transactionID).set(newData)
+      .then(function() {
+        console.log("Data written successfully!");
+      })
+      .catch(function(error) {
+        console.error("Error writing data: ", error);
+      });
+      break;
+    case `"machineTest2"`:
+      dataRef = database.ref(`users/uid/CpSFEjW3QGckOPjuQSEbORx7Wdq1/TST002/transactionHistory/eWallet`);
+      // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
+      dataRef.child(transactionID).set(newData)
+      .then(function() {
+        console.log("Data written successfully!");
+      })
+      .catch(function(error) {
+        console.error("Error writing data: ", error);
+      });
+      break;
+    case `"machineTest3"`:
+      dataRef = database.ref(`users/uid/am1eoT1rHJaI6rRrt3kplD0Zfrt2/TST001/transactionHistory/eWallet`);
+      // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
+      dataRef.child(transactionID).set(newData)
+      .then(function() {
+        console.log("Data written successfully!");
+      })
+      .catch(function(error) {
+        console.error("Error writing data: ", error);
+      });
+      break;
+    case `"machineTest4"`:
+      dataRef = database.ref(`users/uid/am1eoT1rHJaI6rRrt3kplD0Zfrt2/TST002/transactionHistory/eWallet`);
+      // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
+      dataRef.child(transactionID).set(newData)
+      .then(function() {
+        console.log("Data written successfully!");
+      })
+      .catch(function(error) {
+        console.error("Error writing data: ", error);
+      });
+      break;
+    default:
+      break;
+  }
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
