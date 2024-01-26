@@ -26,6 +26,7 @@ let ewalletType;
 let transactionID;
 let transactionDate;
 let transactionSummary = "No Data received.";
+let transactionSummary2 = "No Data received.";
 
 // JSON Data parser
 app.use(bodyParser.json());
@@ -52,7 +53,12 @@ app.post('/', (req, res) => {
       paymentStatus = JSON.stringify(payload.status, null, 2);
       ewalletType = JSON.stringify(payload.ewallet_type, null, 2);
 
-      transactionSummary = amountPaid + " " + paymentStatus + " " + ewalletType + " " + transactionID + " " + transactionDate + " " + machineID;
+      if(machineID == "machineTest2"){
+        transactionSummary2 = `amountPaid paymentStatus ewalletType transactionID machineID`;
+      }
+      else{
+        transactionSummary = `amountPaid paymentStatus ewalletType transactionID machineID`;
+      }
 
       writeData();
 
@@ -79,6 +85,12 @@ app.post('/', (req, res) => {
 app.get('/', (req, res) => {
   // Display JSON data
   res.send(transactionSummary);
+  console.log(`localhost:${port} has been opened`)
+});
+
+app.get('/machine2', (req, res) => {
+  // Display JSON data
+  res.send(transactionSummary2);
   console.log(`localhost:${port} has been opened`)
 });
 
