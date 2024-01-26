@@ -54,10 +54,10 @@ app.post('/', (req, res) => {
       ewalletType = JSON.stringify(payload.ewallet_type, null, 2);
 
       if(machineID == "machineTest2"){
-        transactionSummary2 = `amountPaid paymentStatus ewalletType transactionID machineID`;
+        transactionSummary2 = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID}`;
       }
       else{
-        transactionSummary = `amountPaid paymentStatus ewalletType transactionID machineID`;
+        transactionSummary = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID};
       }
 
       writeData();
