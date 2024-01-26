@@ -46,12 +46,12 @@ app.post('/', (req, res) => {
     if(payload) {
       console.log('\nReceived data:', payload);
       
-      amountPaid = JSON.stringify(payload.paid_amount, null, 2);
-      transactionID = JSON.stringify(payload.id, null, 2);
-      transactionDate = JSON.stringify(payload.paid_at, null, 2);
-      machineID = JSON.stringify(payload.external_id, null, 2);
-      paymentStatus = JSON.stringify(payload.status, null, 2);
-      ewalletType = JSON.stringify(payload.ewallet_type, null, 2);
+      amountPaid = JSON5.stringify(payload.paid_amount, null, 2);
+      transactionID = JSON5.stringify(payload.id, null, 2);
+      transactionDate = JSON5.stringify(payload.paid_at, null, 2);
+      machineID = JSON5.stringify(payload.external_id, null, 2);
+      paymentStatus = JSON5.stringify(payload.status, null, 2);
+      ewalletType = JSON5.stringify(payload.ewallet_type, null, 2);
 
       if(machineID == `"machineTest2"`){
         transactionSummary2 = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID}`;
