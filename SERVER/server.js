@@ -57,7 +57,7 @@ app.post('/', (req, res) => {
         transactionSummary2 = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID}`;
       }
       else{
-        transactionSummary = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID};
+        transactionSummary = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID}`;
       }
 
       writeData();
