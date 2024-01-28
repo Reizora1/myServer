@@ -46,18 +46,18 @@ app.post('/', (req, res) => {
     if(payload) {
       console.log('\nReceived data:', payload);
       
-      amountPaid = JSON5.stringify(payload.paid_amount, null, 2);
-      transactionID = JSON5.stringify(payload.id, null, 2);
-      transactionDate = JSON5.stringify(payload.paid_at, null, 2);
-      machineID = JSON5.stringify(payload.external_id, null, 2);
-      paymentStatus = JSON5.stringify(payload.status, null, 2);
-      ewalletType = JSON5.stringify(payload.ewallet_type, null, 2);
+      amountPaid = JSON.stringify(payload.paid_amount, null, 2).replace(/"/g, '');
+      transactionID = JSON.stringify(payload.id, null, 2).replace(/"/g, '');
+      transactionDate = JSON.stringify(payload.paid_at, null, 2).replace(/"/g, '');
+      machineID = JSON.stringify(payload.external_id, null, 2).replace(/"/g, '');
+      paymentStatus = JSON.stringify(payload.status, null, 2).replace(/"/g, '');
+      ewalletType = JSON.stringify(payload.ewallet_type, null, 2).replace(/"/g, '');
 
       if(machineID == `"machineTest2"`){
-        transactionSummary2 = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID}`;
+        transactionSummary2 = `<${amountPaid}A${paymentStatus}B${ewalletType}C${transactionID}D${machineID}>`;
       }
       else{
-        transactionSummary = `${amountPaid} ${paymentStatus} ${ewalletType} ${transactionID} ${machineID}`;
+        transactionSummary = `<${amountPaid}A${paymentStatus}B${ewalletType}C${transactionID}D${machineID}>`;
       }
 
       writeData();
