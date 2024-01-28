@@ -109,7 +109,7 @@ function writeData() {
   switch(machineID) {
     //cases machineTest1 & machineTest2 is for owner1.
     //cases machineTest3 & machineTest4 is for owner2.
-    case `"machineTest1"`:
+    case `machineTest1`:
       dataRef = database.ref(`users/uid/CpSFEjW3QGckOPjuQSEbORx7Wdq1/TST001/transactionHistory/eWallet`);
       // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
       dataRef.child(transactionID).set(newData)
@@ -120,7 +120,7 @@ function writeData() {
         console.error("Error writing data: ", error);
       });
       break;
-    case `"machineTest2"`:
+    case `machineTest2`:
       dataRef = database.ref(`users/uid/CpSFEjW3QGckOPjuQSEbORx7Wdq1/TST002/transactionHistory/eWallet`);
       // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
       dataRef.child(transactionID).set(newData)
@@ -131,7 +131,7 @@ function writeData() {
         console.error("Error writing data: ", error);
       });
       break;
-    case `"machineTest3"`:
+    case `machineTest3`:
       dataRef = database.ref(`users/uid/am1eoT1rHJaI6rRrt3kplD0Zfrt2/TST001/transactionHistory/eWallet`);
       // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
       dataRef.child(transactionID).set(newData)
@@ -142,7 +142,7 @@ function writeData() {
         console.error("Error writing data: ", error);
       });
       break;
-    case `"machineTest4"`:
+    case `machineTest4`:
       dataRef = database.ref(`users/uid/am1eoT1rHJaI6rRrt3kplD0Zfrt2/TST002/transactionHistory/eWallet`);
       // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
       dataRef.child(transactionID).set(newData)
