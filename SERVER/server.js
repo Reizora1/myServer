@@ -31,9 +31,6 @@ let transactionSummary = "No Data received.";
 let transactionSummary2 = "No Data received.";
 
 //middleware
-app.use(express.static(path.join(__dirname), { 'extensions': ['css'], 'index': false }));
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // ignore favicon.ico requests
