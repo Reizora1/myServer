@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APSC Ewallet Portal</title>
+    <link rel="stylesheet" href="paymentPageStyles.css">
+</head>
+<body>
+    <h1>E-WALLET PAYMENT PORTAL</h1>
+    <div class="form-container">
+        <form id="invoiceForm" class="form">
+            <h2>PAYMENT FORM</h2>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" class="input" name="amount" placeholder="Enter amount in PHP" required>
+            <label for="mobileNo">Mobile No:</label>
+            <input type="tel" id="mobileNo" class="input" name="mobile" value="+63" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+            <label for="eWallet">E-Wallet:</label>
+            <select name="eWallet" id="selectedEwallet" class="input">
+                <option value="" disabled selected hidden>Select eWallet</option>
+                <option value="GCASH" id="gCASH" class="inputSelect">GCASH</option>
+                <option value="PAYMAYA" id="maya" class="inputSelect">PAYMAYA</option>
+            </select>
+            <button type="button" onclick="createInvoice()" class="inputSelect">Proceed to payment</button>
+        </form>
+    </div>
+    <div class="faq">
+        <h2 class="h2">Frequently Asked Questions:</h2>
+        <p>
+            <b>1) How much is the minimum amount for a transaction to occur?</b>
+            - A minimum of 10 pesos (10 PHP) is required in order to create an invoice for the transaction.
+        </p>
+        <p>
+            <b>2) Do you support other forms of electronic payment like bank transfers?</b>
+            - We only accept electronic payments made using Gcash or Maya.
+        </p>
+        <p>
+            <b>3) Is it necessary to enter my mobile number in the payment form?</b>
+            - No. However, if you wish to receive a sms of your transaction, it is necessary to enter the recipient's mobile no.
+        </p>
+        <p>
+            <b>4) Can I pay using eWallet and coins under the same transaction?</b>
+            - Unfortunately, the vending machine does not support different payment options under a single transaction.
+        </p>
+        <p>
+            <b>5) I am interested on this vending machine product, who should I reach out?</b>
+            - You may email us at apscservices99@gmail.com.
+        </p>
+    </div>
+
+    <script src="createInvoice2.js"></script>
+</body>
+</html>
