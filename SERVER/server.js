@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+const cors = require('cors');//commit
 const firebase = require('firebase');
 const app = express();
 
