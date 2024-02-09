@@ -55,7 +55,7 @@ app.post('/', (req, res) => {
       paymentStatus = JSON.stringify(payload.status, null, 2).replace(/"/g, '');
       ewalletType = JSON.stringify(payload.ewallet_type, null, 2).replace(/"/g, '');
 
-      if(machineID == `"machineTest2"`){
+      if(machineID == "machineTest2"){
         transactionSummary2 = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}>`;
       }
       else{
