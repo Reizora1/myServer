@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const firebase = require('firebase');
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 const firebaseConfig = {
   apiKey: "AIzaSyDxeU-bMAf-O0HYhz6X8yhsNPpqe19ld_8",
@@ -21,6 +21,7 @@ firebase.initializeApp(firebaseConfig);
 let database = firebase.database();
 
 let payload;
+let header;
 let machineID;
 let amountPaid;
 let paymentStatus;
@@ -29,8 +30,9 @@ let transactionID;
 let transactionDate;
 let transactionSummary = "No Data received.";
 let transactionSummary2 = "No Data received.";
+let callbackToken = "1MAgXeIhQc43ov74AoWMKVuww3fjKHkAPCS9iabBm2c3NuW0";
 
-//middleware
+// JSON Data parser
 app.use(bodyParser.json());
 
 // ignore favicon.ico requests
@@ -41,13 +43,13 @@ app.get('/favicon.ico', (req, res) => {
 // Webhook endpoint to handle POST requests
 app.post('/', (req, res) => {
   // Request body data to payload variable
+  header = req.headers;
   payload = req.body;
 
-  try {
-    // Check if payload is present
-    if(payload) {
-      console.log('\nReceived data:', payload);
-      
+  // Check if payload is present & callback token is valid.
+  if(payload && header['x-callback-token'] == callbackToken) {
+    console.log('\nReceived data:', payload);
+    try {
       amountPaid = JSON.stringify(payload.paid_amount, null, 2).replace(/"/g, '');
       transactionID = JSON.stringify(payload.id, null, 2).replace(/"/g, '');
       transactionDate = JSON.stringify(payload.paid_at, null, 2).replace(/"/g, '');
@@ -61,26 +63,28 @@ app.post('/', (req, res) => {
       else{
         transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}>`;
       }
-
+  
       writeData();
-
+  
       console.log('Amount Paid:', amountPaid);
       console.log('Status:', paymentStatus);
       console.log('Ewallet:', ewalletType);
       console.log('Transaction Id:', transactionID);
       console.log('Date:', transactionDate);
       console.log('Machine ID:', machineID);
+  
+      // 2xx response from our server to indicate successful data acquisition.
+      res.status(200).send('Data received.');
     }
-    else {
-      transactionSummary = `Invalid payload structure`;
+    catch(error) {
+      console.error('Error processing payload:', error);
+      res.status(500).send('Error processing payload.');
+      return;
     }
-    // 2xx response from our server to paymongo indicating successful data acquisition.
-    res.status(200).send('Data received.');
   }
-  catch(error) {
-    console.error('Error processing payload:', error);
-    res.status(500).send('Internal Server Error');
-    return;
+  else {
+    transactionSummary = `Invalid callback token`;
+    res.status(401).send('Invalid callback token');
   }
 });
 
@@ -90,16 +94,9 @@ app.get('/', (req, res) => {
   console.log(`localhost:${port} has been opened`)
 });
 
-app.get('/machine2', (req, res) => {
-  // Display JSON data
-  res.send(transactionSummary2);
-  console.log(`localhost:${port} has been opened`)
-});
-
 // writeData function
-function writeData() {
+function writeData(/*amountPaid, transactionID, paymentStatus, ewalletType*/) {
   let dataRef = null;
-
   // Data to be written
   let newData = {
     amount: amountPaid,
@@ -159,7 +156,7 @@ function writeData() {
       break;
   }
 }
-// Start the server
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
