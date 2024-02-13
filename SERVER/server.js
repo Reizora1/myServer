@@ -94,6 +94,12 @@ app.get('/', (req, res) => {
   console.log(`localhost:${port} has been opened`)
 });
 
+app.get('/machine2', (req, res) => {
+  // Display JSON data
+  res.send(transactionSummary2);
+  console.log(`localhost:${port} has been opened`)
+});
+
 // writeData function
 function writeData(/*amountPaid, transactionID, paymentStatus, ewalletType*/) {
   let dataRef = null;
