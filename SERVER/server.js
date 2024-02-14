@@ -58,10 +58,10 @@ app.post('/', (req, res) => {
       ewalletType = JSON.stringify(payload.ewallet_type, null, 2).replace(/"/g, '');
 
       if(machineID == "machineTest2"){
-        transactionSummary2 = `+${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
+        transactionSummary2 = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
       }
       else{
-        transactionSummary = `+${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
+        transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
       }
   
       writeData();
@@ -83,8 +83,7 @@ app.post('/', (req, res) => {
     }
   }
   else {
-    transactionSummary = `Invalid callback token`;
-    res.status(401).send('Invalid callback token');
+    res.status(204).send('Invalid callback token');
   }
 });
 
