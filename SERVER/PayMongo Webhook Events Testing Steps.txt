@@ -22,4 +22,4 @@ TESTING STEPS:
 -Goto "Headers" section, add a new key named "Paymongo-Signature" and it's value being the secret api test key from the Paymongo Developer's Dashboard.
 -Cick SEND.
 -Check the POST request made in ngrok's Web Interface or in the localhost server console.
--Test further by doing some link transactions or any other method of transactions to see if a payment event has been triggered and the localhost server receiving a POST request json data.s
+-Test further by doing some link transactions or any other method of transactions to see if a payment event has been triggered and the localhost server receiving a POST request json data.
