@@ -49,7 +49,7 @@ app.post('/', (req, res) => {
   console.log(header['x-callback-token']);
 
   // Check if payload is present & callback token is valid.
-  if(payload && header['x-callback-token'] === callbackToken) {
+  if(payload && header['X-Callback-Token'] === callbackToken) {
     console.log('\nReceived data:', payload);
     try {
       amountPaid = JSON.stringify(payload.paid_amount, null, 2).replace(/"/g, '');
