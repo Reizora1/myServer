@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDxeU-bMAf-O0HYhz6X8yhsNPpqe19ld_8",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "apsc-database.firebaseapp.com",
   databaseURL: "https://apsc-database-default-rtdb.asia-southeast1.firebasedatabase.app/",
   projectId: "apsc-database",
