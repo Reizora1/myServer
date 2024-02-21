@@ -30,7 +30,7 @@ let transactionID;
 let transactionDate;
 let transactionSummary = "No Data received.";
 let transactionSummary2 = "No Data received.";
-let callbackToken = "1MAgXeIhQc43ov74AoWMKVuww3fjKHkAPCS9iabBm2c3NuW0";
+let callbackToken = process.env.XENDIT_CALLBACK_TOKEN;
 
 // JSON Data parser
 app.use(bodyParser.json());
