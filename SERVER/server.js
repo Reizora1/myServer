@@ -8,7 +8,7 @@ const port = process.env.PORT || 8080;
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "apsc-database.firebaseapp.com",
-  databaseURL: "https://apsc-database-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
   projectId: "apsc-database",
   storageBucket: "apsc-database.appspot.com",
   messagingSenderId: "848325536482",
