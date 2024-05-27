@@ -27,6 +27,7 @@ let amountPaid;
 let paymentStatus;
 let ewalletType;
 let transactionID;
+let transactionIdVal = 0;
 let transactionDate;
 let transactionSummary = "No Data received.";
 let transactionSummary2 = "No Data received.";
@@ -62,8 +63,13 @@ app.post('/', (req, res) => {
       if(machineID == "machineTest2"){
         transactionSummary2 = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
       }
-      else{
-        transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
+      else if(machineID == "machineTest1" && transactionIdVal == 0){
+        transactionIdVal = 1;
+        transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionIdVal}%${machineID}+`;
+      }
+      else if (machineID == "machineTest1" && transactionIdVal == 1){
+        transactionIdVal = 0;
+        transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionIdVal}%${machineID}+`;
       }
   
       writeData();
