@@ -60,14 +60,14 @@ app.post('/', (req, res) => {
       paymentStatus = JSON.stringify(payload.status, null, 2).replace(/"/g, '');
       ewalletType = JSON.stringify(payload.ewallet_type, null, 2).replace(/"/g, '');
 
-      if(machineID == "machineTest2"){
+      if(machineID == "mac02"){
         transactionSummary2 = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
       }
-      else if(machineID == "machineTest1" && transactionIdVal == 0){
+      else if(machineID == "mac01" && transactionIdVal == 0){
         transactionIdVal = 1;
         transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionIdVal}%${machineID}+`;
       }
-      else if (machineID == "machineTest1" && transactionIdVal == 1){
+      else if (machineID == "mac01" && transactionIdVal == 1){
         transactionIdVal = 0;
         transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionIdVal}%${machineID}+`;
       }
