@@ -63,14 +63,18 @@ app.post('/', (req, res) => {
       if(machineID == "mac02"){
         transactionSummary2 = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
       }
-      else if(machineID == "mac01" && transactionIdVal == 0){
+      else if(machineID == "mac01"){
+        transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionID}%${machineID}+`;
+      }
+      
+      /*else if(machineID == "mac01" && transactionIdVal == 0){
         transactionIdVal = 1;
         transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionIdVal}%${machineID}+`;
       }
       else if (machineID == "mac01" && transactionIdVal == 1){
         transactionIdVal = 0;
         transactionSummary = `<${amountPaid}!${paymentStatus}@${ewalletType}#${transactionIdVal}%${machineID}+`;
-      }
+      }*/
   
       writeData();
   
