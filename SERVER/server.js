@@ -147,7 +147,7 @@ function writeData(/*amountPaid, transactionID, paymentStatus, ewalletType*/) {
         console.error("Error writing data: ", error);
       });
       break;
-    case `mac03`:
+    case `machineTest3`:
       dataRef = database.ref(`users/uid/am1eoT1rHJaI6rRrt3kplD0Zfrt2/TST001/transactionHistory/eWallet`);
       // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
       dataRef.child(transactionID).set(newData)
@@ -158,7 +158,7 @@ function writeData(/*amountPaid, transactionID, paymentStatus, ewalletType*/) {
         console.error("Error writing data: ", error);
       });
       break;
-    case `mac04`:
+    case `machineTest4`:
       dataRef = database.ref(`users/uid/am1eoT1rHJaI6rRrt3kplD0Zfrt2/TST002/transactionHistory/eWallet`);
       // Push new data to the database or update existing data if there is a similar existing transactionID in the database/
       dataRef.child(transactionID).set(newData)
